@@ -15,7 +15,7 @@ The “TI Review of EMI Standards” can assist designers in determining the req
 - [A review of EMI standards, part 2 – radiated emissions](https://www.ti.com/lit/ta/sszt671/sszt671.pdf?ts=1718909293671&ref_url=https%253A%252F%252Fsearch.yahoo.com%252F)
 
 ## Describing EMC
-The methods by which noise radiate out of a PCB are well described by Wurth Elektronik’s application note: [Impact of the layout, components, and filters on the EMC of modern DC/DC switching controllers](https://www.we-online.com/components/media/o109026v410 AppNotes_ANP044_ImpactOfTheLayoutComponentsAndFiltersOnTheEMCOfModernDCDCSwitchingControllers_EN.pdf). In this note it describes the difference between common-mode interference and differential-mode interference. It also discusses the characteristics of the current flowing through the two loops that are fundamental to the working principle of a step-down converter. Recently Robert Feranec’s video [Simple Trick to Improve EMC – Easy Filter Design for Power Supply](https://www.youtube.com/watch?v=J4UUGSIP770) with Thomas Eichstetter elegantly described these loops and their impact on EMC test results.
+The methods by which noise radiate out of a PCB are well described by Wurth Elektronik’s application note: [Impact of the layout, components, and filters on the EMC of modern DC/DC switching controllers](https://www.we-online.com/components/media/o109026v410%20AppNotes_ANP044_ImpactOfTheLayoutComponentsAndFiltersOnTheEMCOfModernDCDCSwitchingControllers_EN.pdf). In this note it describes the difference between common-mode interference and differential-mode interference. It also discusses the characteristics of the current flowing through the two loops that are fundamental to the working principle of a step-down converter. Recently Robert Feranec’s video [Simple Trick to Improve EMC – Easy Filter Design for Power Supply](https://www.youtube.com/watch?v=J4UUGSIP770) with Thomas Eichstetter elegantly described these loops and their impact on EMC test results.
 
 ## Finding the Issue
 The customer was using the TPS650250RHBR Power Management IC (PMIC) as well as the LT3471EDD#PBF boost converter to provide their PCB with multiple voltage rails. The PMIC has 3 synchronized 2.2MHz fixed-frequency buck converters powering their digital electronics while the boost converter has a switching frequency of 1.2MHz and supplies the analog sensing electronics.
@@ -35,4 +35,31 @@ The 744272251 from Wurth Elektronik meets these requirements and has a high comm
 To solve the differential-mode noise problem a capacitor can be combined with this line filter to create a LC lowpass filter.
 Wurth Elektronik’s Application Note: [1-Phase Line Filter Design](https://www.we-online.com/components/media/o109029v410 ANP015_EN.pdf) as well as Wurth Elektronik’s “Trilogy of Magnetics – Design Guide for EMI Filter Design, SMPS & RF Circuits”. Both suggest when you are unable to test the electronics it is a good practice to design the input filter to a step-down converter with at least 40dB of attenuation at the switching frequency.
 An ideal LC lowpass filter provides 40dB of attenuation per decade, therefore the corner frequency of the circuit should be 120kHz for 40dB of attenuation at the switching frequency of the boost converter. This can be calculated with the following equation.
-$$A_fsw = log \left( f_sw/f_co \right)*40dB$$
+
+$$A_f_s_w = log \left( f_s_w/f_c_o \right)*40dB$$
+$$f_c_o = f_s_w/10^ \left( A_f_s_w/40dB \right)$$
+$$f_c_o = 1.2MHz/10^ \left( 40dB/40dB \right)$$
+$$f_c_o = 120kHz$$
+
+This corner frequency along with the inductance of the common-mode line filter can be used to determine the capacitance required to attenuate noises in this frequency range.
+
+$$f_c_o = 1/ \left( 2 Green small letter pi \sqrt{LC} \right)$$
+
+The inductance of the common-mode line filter for differential-mode signal attenuation is defined as the leakage inductance of the common-mode line filter and can be found in the datasheet of most devices. Or it can be calculated from the differential-mode impedance curve as described in [Application Note: 1-Phase Line Filter Design](https://www.we-online.com/components/media/o109029v410 ANP015_EN.pdf). The datasheet of the 744272251 states that the leakage inductance is 1500nH.
+
+$$f_c_o = 1/ \left( 2 Green small letter pi \sqrt{LC} \right)$$
+$$C = 1/ \left( 2 Greek small letter pi f_c_o \right) ^2 L_L_e_a_k$$
+$$C = 1.2 Greek small letter mu F$$
+
+A common capacitor value in this range is 2.2uF. A voltage rating of 16V was sufficient factor of safety for 4 AA batteries. A small package size to reduce the ESL was found to be a 0402. The C1005X5R1C225K050BC from TDK met all of these requirements.
+![New Common-Mode Filter Circuit RV01]()
+![Bode Plot of the new Common-Mode Filter Circuit RV01]()
+This filter shows good -45dB attenuation at 1.2MHz however it also shows a strong resonance at 87kHz and depending on the resistance of the components and PCB signals at 87kHz could be significantly amplified. This is why the application notes above highly recommend an additional parallel RC damping circuit.
+![New Common-Mode Filter Circuit RV02]()
+The Impact of the layout, components, and filters on the EMC of modern DC/DC switching controllers on page 5 states that a dampening factor ζ of 0.707 in the transfer function of the circuit will provide good attenuation of the resonant frequency but not effect the corner frequency of the filter. The dampening factor can be calculated using the following equations.
+
+
+$$ζ=(n+1)/n∙L_filter/(2∙R_damp∙√(L_filter∙C_input ))$$
+
+
+
