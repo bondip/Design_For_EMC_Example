@@ -22,7 +22,7 @@ The customer was using the TPS650250RHBR Power Management IC (PMIC) as well as t
 
 ### Common-Mode Filter Design
 With this in mind, the investigation started at the battery connector. Here the electronics have a safety circuit followed by a common mode line filter.
-![Original Common-Mode Filter Circuit]()
+![Similar Original Common-Mode Filter Circuit](https://github.com/bondip/Design_For_EMC_Example/blob/workspace/Similar%20Original%20CM%20Line%20Filter%20Circuit.png)
 Line filters are commonly used for applications like this to suppress common mode noise from radiating out through the battery. However, Wurth Elektronik’s REDEXPERT simulation tool shows that the common-mode impedance of the chosen device below 2MHz is negligible and the differential-mode impedance below 10MHz is negligible.
 ![Two plots showing Common-Mode Impedance vs Frequency and Differential-Mode Impedance Vs Frequency of the 744235900 Common-Mode Filter from Wurth Elektronik]()
 [Link to RedExpert](https://we-online.com/re/5rD48nKY)
