@@ -43,7 +43,7 @@ $$f_{co} = 120kHz$$
 
 This corner frequency along with the inductance of the common-mode line filter can be used to determine the capacitance required to attenuate noises in this frequency range.
 
-$$f_{co} = 1/ \left( 2 &pi \sqrt{LC} \right)$$
+$$f_{co} = 1/ \left( 2 &pi; \sqrt{LC} \right)$$
 
 The inductance of the common-mode line filter for differential-mode signal attenuation is defined as the leakage inductance of the common-mode line filter and can be found in the datasheet of most devices. Or it can be calculated from the differential-mode impedance curve as described in [Application Note: 1-Phase Line Filter Design](https://www.we-online.com/components/media/o109029v410 ANP015_EN.pdf). The datasheet of the 744272251 states that the leakage inductance is 1500nH.
 
