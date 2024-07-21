@@ -48,7 +48,7 @@ $$f_{co} = 1/ \left( 2 Greek small letter pi \sqrt{LC} \right)$$
 The inductance of the common-mode line filter for differential-mode signal attenuation is defined as the leakage inductance of the common-mode line filter and can be found in the datasheet of most devices. Or it can be calculated from the differential-mode impedance curve as described in [Application Note: 1-Phase Line Filter Design](https://www.we-online.com/components/media/o109029v410 ANP015_EN.pdf). The datasheet of the 744272251 states that the leakage inductance is 1500nH.
 
 $$f_{co} = 1/ \left( 2 Green small letter pi \sqrt{LC} \right)$$
-$$C = 1/ \left( 2 Greek small letter pi f_{co} \right) ^2 L_L_e_a_k$$
+$$C = 1/ \left( 2 &pi f_{co} \right) ^2 L_L_e_a_k$$
 $$C = 1.2 Greek small letter mu F$$
 
 A common capacitor value in this range is 2.2uF. A voltage rating of 16V was sufficient factor of safety for 4 AA batteries. A small package size to reduce the ESL was found to be a 0402. The C1005X5R1C225K050BC from TDK met all of these requirements.
