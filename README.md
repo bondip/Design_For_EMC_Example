@@ -95,15 +95,18 @@ In the video they show how the inductor and output capacitor always have current
 In the customers prototype the three buck converters used the 10&mu;F, 10V, 0805 ceramic capacitor C2012X5R1A106M125AB from TDK Corporation which is a very old component that is no longer being manufactured. The GRM155R61A106ME11D from Murata is a better choice because it has the same capacitance and voltage rating but is in a smaller package size of 0402 thus reducing the ESR and ESL.
 
 ### PCB Stackup For Better Return Paths
-The customer’s prototype was a 6-layer PCB that did not have signal – ground plane pairs that are so crucial for high performance PCBs with modern components.
+The boards stackup was similar to many 6-layer stackups that are notorious for poor signal return paths that is critical for high performance PCBs with modern components.
 
 ![Current Stackup](/assets/Similar%20Original%20Stackup.png)
 
-An 8-layer board with stitching vias would be much better suited to give the signals contiguous return paths however due to other changes in the design the following 10-layer PCB was chosen.
+In this board the Top Layer, MidLayer1, MidLayer2, and Bottom Layer were all used to route signals to and from the components placed on the Top and Bottom of the PCB. The GroundPlane was split into 2 isolated planes, the PowerPlane was split into many different planes, and the routing layers had ground poured throughout the remainder of the open space. The design also had stitching vias connecting the majority of these copper sections of ground together.
+
+This is a problem for the high frequency modern electronics on the circuit board. For a full understanding of this concept I would highly recommend reading Fast Circuit Boards: Energy Management by Ralph Morrison. From this understanding an 8-layer board would be much better suited to give the signals contiguous return paths however due to other changes in the design the following 10-layer stackup was chosen.
+
 
 ![New Stackup](/assets/New%20Stackup.png)
 
-With this design every layer has a contiguous ground plane directly above or below it providing optimal return paths.
+While it is possible to design a stackup with custom prepreg copper, and core thicknesses. It is much more economical to choose a predefined stackup that your manufacturer has readily available. This particular stackup was selected from [PCBWay’s predefined stackups](https://www.pcbway.com/multi-layer-laminated-structure.html). With this design every layer has a contiguous ground plane directly above or below it providing optimal return paths.
 
 
 
