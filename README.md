@@ -33,7 +33,7 @@ With this in mind, the investigation started at the battery connector. The custo
 Line filters are commonly used for applications like this to suppress common mode noise from radiating out through the battery. However, Wurth Elektronik’s REDEXPERT simulation tool shows that the common-mode impedance of the chosen device below 2MHz is negligible and the differential-mode impedance below 10MHz is negligible.
 
 ![Two plots showing Common-Mode Impedance vs Frequency and Differential-Mode Impedance Vs Frequency of the 744235900 Common-Mode Filter from Wurth Elektronik](/assets/744235900%20CM%20and%20DM%20Impedance%20vs%20Frequency%20Plots.png)
-:[Link to RedExpert](https://we-online.com/re/5rD48nKY):
+[Link to RedExpert](https://we-online.com/re/5rD48nKY)
 
 This means that the switching noise will pass through this device if it is present as a common-mode or a differential-mode noise.
 To solve the common-mode noise problem this design needs a common-mode line filter with a wider bandwidth. This new device will also need to maintain a margin of safety over the maximum current and voltage on this net as well as fit inside the mechanical housing. The original line filter had a maximum current rating of 2A and 60V. The mechanical housing has approximately 10mm of vertical space above the PCB.
