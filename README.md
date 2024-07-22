@@ -79,7 +79,7 @@ The Impact of the layout, components, and filters on the EMC of modern DC/DC swi
 
 $$n = C_{damp}/C_{input}$$
 
-$$ &zeta; = \left( n+1 \right) $$
+$$ &zeta; = \left( n+1 \right) /n * L_{filter}/ $$
 
 The dampening capacitor should be chosen to be at least 4x the capacitance of the input capacitor however much larger capacitance with low ESR is even more optimal for this situation. Therefore, a 100&mu;F aluminum polymer capacitor with a 16V rating and low ESR was selected which then resulted in a dampening resistor equal to 0.60Ohms. The 875105344010 from Wurth Elektronik was chosen due to its high capacitance and low ESR to allow the dampening resistor to dominate the series resistance of the two devices. The resistor was chosen to be in a small 0603 package and the RL0603FR-070R6L from Yageo was chosen.
 
